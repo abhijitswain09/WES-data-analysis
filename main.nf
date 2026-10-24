@@ -48,7 +48,7 @@ workflow {
     }
     HAPLOTYPE_CALLER(analysis_bam, reference, intervals)
     if (params.joint_genotyping) {
-        sample_gvcfs = HAPLOTYPE_CALLER.out.gvcf.map { meta, gvcf, index -> gvcf }.collect()
+        sample_gvcfs = HAPLOTYPE_CALLER.out.gvcf.map { meta, gvcf, index -> [gvcf, index] }.collect(flat: true)
         cohort_gvcf = COMBINE_GVCFS(sample_gvcfs, reference)
         GENOTYPE_GVCFS(cohort_gvcf.out.gvcf, reference)
     }

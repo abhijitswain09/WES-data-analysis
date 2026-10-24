@@ -5,13 +5,12 @@ process COMBINE_GVCFS {
  path gvcfs
  tuple path(reference), path(fai), path(dict)
  output:
- path 'cohort.g.vcf.gz', emit: gvcf
-    path 'cohort.g.vcf.gz.tbi', emit: index
+ tuple path('cohort.g.vcf.gz'), path('cohort.g.vcf.gz.tbi'), emit: gvcf
  script:
  """
  gatk_args=()
     for gvcf in *.g.vcf.gz; do gatk_args+=( -V "$gvcf" ); done
-    gatk CombineGVCFs -R ${reference} "${gatk_args[@]}" -O cohort.g.vcf.gz
+    gatk CombineGVCFs -R ${reference} "\${gatk_args[@]}" -O cohort.g.vcf.gz
     gatk IndexFeatureFile -I cohort.g.vcf.gz
  """
 }

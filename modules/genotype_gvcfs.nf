@@ -2,7 +2,7 @@ process GENOTYPE_GVCFS {
  label 'process_high'
  conda 'bioconda::gatk4=4.6.1.0'
  input:
- path gvcf
+ tuple path(gvcf), path(gvcf_index)
  tuple path(reference), path(fai), path(dict)
  output:
  path 'cohort.vcf.gz', emit: vcf

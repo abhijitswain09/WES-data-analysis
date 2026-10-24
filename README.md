@@ -36,6 +36,14 @@ By default, the workflow keeps one GVCF per sample. Enable joint genotyping when
 
 This combines the sample GVCFs and emits a cohort VCF. This is a germline workflow, not a somatic variant caller.
 
+## Optional FlowViewer
+
+From a local clone, start the FlowViewer server from its repository, then launch with the included config:
+
+    nextflow run . -profile docker -c conf/flowviewer.config --input samplesheet.csv --fasta genome.fa --intervals exome_targets.bed --outdir results
+
+Set FLOWVIEWER_URL when the viewer runs at another address. The FlowViewer plugin requires Nextflow 25.10 or later.
+
 ## Parameters
 
 | Parameter | Default | Description |
